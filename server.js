@@ -6,6 +6,8 @@ const axios = require("axios");
 const mongoose = require("mongoose");
 require("dotenv").config({ path: __dirname + "/.env" });
 
+const getBook= require('./controller/api.controller');
+
 const app = express();
 
 app.use(cors());
@@ -22,6 +24,8 @@ mongoose.connect(`${mongoUrl}`);
 app.get("/", (req, res) => {
   res.send("<h1>Server is Up & Running</h1>");
 });
+
+app.get("/book",getBook);
 
 // userSeed();
 
