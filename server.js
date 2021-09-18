@@ -14,21 +14,19 @@ app.use(express.json());
 const port = process.env.PORT;
 const mongoUrl = process.env.MONGO_URL;
 
-const userSeed = require('./helpers/users.seed');
-const register = require('./controllers /authorisation');
-
-
+const userSeed = require("./helpers/users.seed");
+const { register, signIn } = require("./controllers /authorisation");
 
 mongoose.connect(`${mongoUrl}`);
 
 app.get("/", (req, res) => {
   res.send("<h1>Server is Up & Running</h1>");
 });
-app.post("/register",register);
-// userSeed();
+app.post("/register", register);
+app.post("/signIn", signIn);
 
+// userSeed();
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}.`);
 });
-
