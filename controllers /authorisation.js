@@ -12,7 +12,6 @@ const register = (req, res) => {
     intrests: [],
     likes: [],
   });
-
   newUser.save();
   console.log("userCreated");
   res.json(newUser);

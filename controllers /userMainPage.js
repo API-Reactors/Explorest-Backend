@@ -1,5 +1,25 @@
 "use strict";
+require("dotenv").config();
+const getIntrests = require("./api.controller");
 const User = require("../models/User");
+
+function shuffle(array) {
+    let currentIndex = array.length,  randomIndex;
+  
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+  
+    return array;
+  };
 
 const getUserMain = (req, res) => {
   console.log(req.params);
@@ -7,30 +27,11 @@ const getUserMain = (req, res) => {
 
   User.findOne({ userName: userId }, (error, foundUser) => {
     if (error) {
-      console.log("Error", error);
     } else {
-      console.log("UserFound", foundUser.intrests);
-
       const intrestsArray = foundUser.intrests;
-
-      intrestsArray.map((item) => {
-        switch (item) {
-          case "books":
-            console.log("user has intrest in books");
-            break;
-          case "movies":
-            console.log("user has intrest in movies");
-            break;
-          case "food":
-            console.log("user has intrest in foods");
-            break;
-          case "arts":
-            console.log("user has intrest in arts");
-            break;
-          case "fashion":
-            console.log("user has intrest in fashin");
-            break;
-        }
+      getIntrests(intrestsArray).then((intrestsItems) => {
+        shuffle(intrestsItems);
+        res.json(intrestsItems);
       });
     }
   });
