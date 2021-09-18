@@ -6,46 +6,39 @@ const { req, res } = require("express");
 const addLikePost = (req, res) => {
   const { title, imgUrl, description, comment } = req.body;
   const userIdentity = req.params.user_id;
-  User.findByIdAndUpdateLike({ _id: userIdentity }, (err, userInfo) => {
-    userInfo.likes.push({ title, imgUrl, description, comment });
+  User.findById({ _id: userIdentity }, (err, userInfo) => {
+    userInfo.likes.push({ title: title, imgUrl: imgUrl, description: description, comment: comment });
+    // console.log(userInfo)
     userInfo.save();
     res.json(userInfo.likes);
   });
 };
 
 const deleteLikePost = (req, res) => {
-  const {title,imgUrl,description, comment} = req.body;
+  const { title} = req.body;
   const userIdentity = req.params.user_id;
-  User.findByIdAndUpdateLike ({_id:userIdentity},(err,userInfo)=>{
+  User.findById({ _id: userIdentity }, (err, userInfo) => {
     let indexOfPost = userInfo.likes.findIndex((i) => i.title === title);
-    console.log({ indexOfPost });
-  
     userInfo.likes.splice(indexOfPost, 1);
-    console.log({userInfo});
-    res.json(userInfo.likes);
-})
+    // console.log({ userInfo });
+    userInfo.save();
+    res.json(userInfo);
+  })
 }
 
-const check = (req, res) => {
-  // let likes1 = [{ title: "titlje" }, { title: "title" }];
-  // let indexOfPost = likes1.findIndex((i) => i.title === "title");
-  // console.log({ indexOfPost });
+const updateLikePost = (req, res) => {
 
-  // likes1.splice(indexOfPost, 1);
-  console.log( "hello" );
-};
+  const { title,newcomment} = req.body;
+  const userIdentity = req.params.user_id;
+  User.findById({ _id: userIdentity }, (err, userInfo) => {
+    let idx = userInfo.likes.findIndex((i) => i.title === title);
+    let likeee = userInfo.likes[idx]
+    likeee['comment'] = newcomment
+    userInfo.likes[idx] = likeee
+    console.log(userInfo.likes);
+    userInfo.save();
+    res.json(userInfo.likes);
+  })
+}
 
-// const deletepost =(req, res) =>{
-// console.log(req.params);
-// const userIdentity = req.params.user_id;
-//   user.deleteOnepost({ _id: userIdentity }, (err, deletepost) => {
-//     res.json(deletepost);
-//   });
-
-// }
-// const updatDetails = (req, res) => {
-
-//     const userIdentity = req.params.user_id;
-
-// }
-module.exports = { addLikePost, check, deleteLikePost };
+module.exports = { addLikePost, deleteLikePost, updateLikePost };

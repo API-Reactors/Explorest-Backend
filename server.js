@@ -15,7 +15,7 @@ const port = process.env.PORT;
 const mongoUrl = process.env.MONGO_URL;
 
 const userSeed = require('./helpers/users.seed');
-const {addLikePost,check} =require('./controllers/userLikes')
+const {addLikePost,deleteLikePost,updateLikePost} =require('./controllers/userLikes')
 
 
 mongoose.connect(`${mongoUrl}`);
@@ -25,12 +25,9 @@ app.get("/", (req, res) => {
 });
 
 // userSeed();
-app.put('/addLike/ :user_id', addLikePost)
-// app.post("/user",userDetails),
-// app.delete("/user", deleteDetails );
-// app.update("/user", updatDetails );
-app.get("/user",check);
-app.put('/deleteLike/ :user_id', deleteLikePost)
+app.put('/addLike/:user_id', addLikePost)
+app.put('/deleteLike/:user_id', deleteLikePost)
+app.put('/updateLike/:user_id', updateLikePost)
 
 
 
