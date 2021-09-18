@@ -6,6 +6,8 @@ const axios = require("axios");
 const mongoose = require("mongoose");
 require("dotenv").config({ path: __dirname + "/.env" });
 
+const getBook= require('./controller/api.controller');
+
 const app = express();
 
 app.use(cors());
@@ -27,6 +29,8 @@ app.post("/register", register);
 app.post("/signIn", signIn);
 app.get("/main/:userName", getUserMain);
 
+
+app.get("/book",getBook);
 
 // userSeed();
 
