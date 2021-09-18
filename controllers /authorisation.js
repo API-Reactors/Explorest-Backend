@@ -9,7 +9,7 @@ const register = (req, res) => {
     fullName,
     email,
     password,
-    interests: [],
+    intrests: [],
     likes: [],
   });
   newUser.save();
