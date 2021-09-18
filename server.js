@@ -12,6 +12,9 @@ app.use(express.json());
 
 const port = process.env.PORT;
 const mongoUrl = process.env.MONGO_URL;
+
+const {addLikePost,deleteLikePost,updateLikePost} =require('./controllers/userLikes')
+
 mongoose.connect(`${mongoUrl}`);
 
 const { register, signIn } = require("./controllers /authorisation");
@@ -21,9 +24,13 @@ app.get("/", (req, res) => {
   res.send("<h1>Server is Up & Running</h1>");
 });
 
+
 app.post("/register", register);
 app.post("/signIn", signIn);
 app.get("/main/:userName", getUserMain);
+app.put('/addLike/:user_id', addLikePost)
+app.put('/deleteLike/:user_id', deleteLikePost)
+app.put('/updateLike/:user_id', updateLikePost)
 
 
 app.listen(port, () => {
