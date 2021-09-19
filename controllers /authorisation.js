@@ -19,6 +19,7 @@ const register = (req, res) => {
 
 const signIn = (req, res) => {
   const { userName, password } = req.body;
+  
   User.findOne({ userName: userName }, (error, foundUser) => {
     if (foundUser) {
       console.log("UserFound");
