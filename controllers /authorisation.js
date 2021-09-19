@@ -13,8 +13,8 @@ const register = (req, res) => {
     likes: [],
   });
   newUser.save();
-  console.log("userCreated");
-  res.json(newUser);
+  // console.log("userCreated");
+  res.json({ message: "Successfully Registered, Please login now." });
 };
 
 const signIn = (req, res) => {
@@ -22,14 +22,14 @@ const signIn = (req, res) => {
   
   User.findOne({ userName: userName }, (error, foundUser) => {
     if (foundUser) {
-      console.log("UserFound");
+      // console.log("UserFound");
       if (foundUser.password == password) {
-        res.json("Successfully Signed In !");
+        res.json({message: "Login Successfull", user: foundUser});
       } else {
-        res.json("InCorrect Password !");
+        res.json({message:"InCorrect Password !"});
       }
     } else {
-      res.json("User Not Found :(");
+      res.json({message:"User Not Found :("});
     }
   });
 };
