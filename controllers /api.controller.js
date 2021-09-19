@@ -118,6 +118,42 @@ if (intrest.includes("movies")) {
     Array.prototype.push.apply(intrestsItems, newMovies);
   }
 
+  //memes
+  
+  if (intrest.includes("memes")) {
+    console.log("User has intrest in Mems");
+
+    const memesArr=[];
+for (let i = 0; i < 20; i++) {
+      const memesResponse = await axios.get(
+        `https://some-random-api.ml/meme`
+      );
+      const newMemes = memesResponse.data;
+       const memes = new Interestsnt(newMemes.caption, newMemes.caption, newMemes.image);
+       memesArr.push(memes);
+      }; 
+  
+      Array.prototype.push.apply(intrestsItems, memesArr);
+    }
+
+    //colors
+  
+  if (intrest.includes("colors")) {
+    console.log("User has intrest in Colors");
+
+    const colorArr=[];
+for (let i = 0; i < 20; i++) {
+      const colorResponse = await axios.get(
+        `https://www.colourlovers.com/api/palettes/random?format=json`
+      );
+      const newColor = memesResponse.data;
+       const color = new Interestsnt(newColor.userName, newColor.colors.toString(), newColor.imageUrl);
+       colorArr.push(color);
+      }; 
+      Array.prototype.push.apply(intrestsItems, colorArr);
+    }
+
+
 
  return intrestsItems;
 };

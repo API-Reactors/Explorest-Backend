@@ -28,7 +28,7 @@ const getUserMain = (req, res) => {
   User.findOne({ userName: userId }, (error, foundUser) => {
     if (error) {
     } else {
-      const intrestsArray = foundUser.intrests;
+      const intrestsArray = ["foundUser.intrests"];
       getIntrests(intrestsArray).then((intrestsItems) => {
         shuffle(intrestsItems);
         res.json(intrestsItems);
