@@ -11,4 +11,6 @@ const putIntrests = (req, res) => {
     res.json(userIntrests.intrests);
   });
 };
+
+
 module.exports = putIntrests;

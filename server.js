@@ -20,6 +20,8 @@ mongoose.connect(`${mongoUrl}`);
 const { register, signIn } = require("./controllers /authorisation");
 const getUserMain = require("./controllers /userMainPage");
 const putIntrests =require('./controllers /userIntrests')
+const getTest=require('./controllers /testCard')
+
 
 app.get("/", (req, res) => {
   res.send("<h1>Server is Up & Running</h1>");
@@ -32,7 +34,9 @@ app.get("/main/:userName", getUserMain);
 app.put('/addLike/:user_id', addLikePost)
 app.put('/deleteLike/:user_id', deleteLikePost)
 app.put('/updateLike/:user_id', updateLikePost)
-app.get('/addIntrests/:user_id',putIntrests)
+app.put('/addIntrests/:user_id',putIntrests)
+app.get('/Test',getTest)
+
 
 
 
