@@ -33,7 +33,7 @@ app.put('/addLike/:user_id', addLikePost)
 app.put('/deleteLike/:user_id', deleteLikePost)
 app.put('/updateLike/:user_id', updateLikePost)
 app.put('/getLiked/:user_id', getLikedPost)
-app.get('/addIntrests/:user_id',putIntrests)
+app.put('/addIntrests/:user_id',putIntrests)
 
 
 app.listen(port, () => {
