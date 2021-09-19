@@ -40,5 +40,14 @@ const updateLikePost = (req, res) => {
     res.json(userInfo.likes);
   })
 }
+const getLikedPost = (req,res)=> {
+  const userIdentity = req.params.user_id;
+  User.find({ _id: userIdentity }, (err, userInfo) => {
+    console.log(userInfo.likes);
+    res.json(userInfo.likes);
 
-module.exports = { addLikePost, deleteLikePost, updateLikePost };
+
+  })
+}
+
+module.exports = { addLikePost, deleteLikePost, updateLikePost,getLikedPost };
