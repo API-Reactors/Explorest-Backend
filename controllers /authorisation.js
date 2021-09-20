@@ -22,9 +22,9 @@ const signIn = (req, res) => {
   
   User.findOne({ userName: userName }, (error, foundUser) => {
     if (foundUser) {
-      console.log("UserFound");
+      console.log({foundUser});
       if (foundUser.password == password) {
-        res.json("Successfully Signed In !");
+        res.json(foundUser);
       } else {
         res.json("InCorrect Password !");
       }
