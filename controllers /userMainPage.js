@@ -22,13 +22,14 @@ function shuffle(array) {
   };
 
 const getUserMain = (req, res) => {
-  console.log(req.params);
+  
   const userId = req.params.userName;
 
   User.findOne({ userName: userId }, (error, foundUser) => {
     if (error) {
     } else {
       const intrestsArray = foundUser.intrests;
+      console.log(intrestsArray);
       getIntrests(intrestsArray).then((intrestsItems) => {
         shuffle(intrestsItems);
         res.json(intrestsItems);
