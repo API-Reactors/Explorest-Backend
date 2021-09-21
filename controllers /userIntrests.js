@@ -9,7 +9,7 @@ const putIntrests = (req, res) => {
     userIntrests.intrests = arrayIntrests;
     console.log(userIntrests.intrests);
     userIntrests.save();
-    res.json(userIntrests.intrests);
+    res.json(userIntrests);
   });
 };
 
