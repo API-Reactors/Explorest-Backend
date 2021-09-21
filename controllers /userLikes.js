@@ -10,7 +10,7 @@ const addLikePost = (req, res) => {
     userInfo.likes.push({ title: title , imgUrl: imgUrl, description: description, comment: comment });
     // console.log(userInfo)
     userInfo.save();
-    res.json(userInfo.likes);
+    res.json(userInfo);
   });
 };
 
