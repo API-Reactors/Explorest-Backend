@@ -54,7 +54,7 @@ let intrestsItems =[];
     });
     Array.prototype.push.apply(intrestsItems, newfoods);
   }
-  //meakup
+  //makeup
 
   if (intrest.includes("makeup")) {
     console.log("User has intrest in Makeup");
@@ -105,19 +105,47 @@ let intrestsItems =[];
     Array.prototype.push.apply(intrestsItems, newAnime);
   }
 
-//movies
-if (intrest.includes("movies")) {
-  console.log("User has intrest in Movies");
-    const moviesResponse = await axios.get(
-      `https://api.jikan.moe/v3/search/anime?q=anime&rated=pg13`
-    );
+// //movies
+// if (intrest.includes("movies")) {
+//   console.log("User has intrest in Movies");
+//     const moviesResponse = await axios.get(
+//       `https://api.jikan.moe/v3/search/anime?q=anime&rated=pg13`
+//     );
 
-    const newMovies = moviesResponse.data.results.map((value) => {
-      return new Interestsnt(value.title, value.synopsis, value.image_url);
-    });
-    Array.prototype.push.apply(intrestsItems, newMovies);
-  }
+//     const newMovies = moviesResponse.data.results.map((value) => {
+//       return new Interestsnt(value.title, value.synopsis, value.image_url);
+//     });
+//     Array.prototype.push.apply(intrestsItems, newMovies);
+//   }
 
+ 
+  
+  // Treeeeeeees ------- 
+
+  if (intrest.includes("tree")) {
+    console.log("User has intrest in tree");
+      const treeResponse = await axios.get(
+        `https://api.unsplash.com/search/photos?client_id=zFQ_Z1BIlXm8s9RrK2ZlSKQL9MLUyn6nceDv6EdT5mU&query=tree&per_page=15&content_filter=high`
+      );
+  
+      const newTree = treeResponse.data.results.map((value) => {
+        return new Interestsnt(value.description, value.alt_description, value.urls.full);
+      });
+      Array.prototype.push.apply(intrestsItems, newTree);
+    }
+  // https://api.unsplash.com/search/photos?client_id=zFQ_Z1BIlXm8s9RrK2ZlSKQL9MLUyn6nceDv6EdT5mU&query=trees&per_page=15
+// art 
+// if (intrest.includes("art")) {
+//   console.log("User has intrest in art");
+//     const artResponse = await axios.get(
+//       `https://api.unsplash.com/search/photos?client_id=zFQ_Z1BIlXm8s9RrK2ZlSKQL9MLUyn6nceDv6EdT5mU&query=javascript&per_page=15&content_filter=high`
+//     );
+
+//     const newArt = artResponse.data.results.map((value) => {
+//       return new Interestsnt(value.description, value.alt_description, value.urls.full);
+//     });
+//     Array.prototype.push.apply(intrestsItems, newArt);
+//   }
   //memes
   
   if (intrest.includes("memes")) {
@@ -138,7 +166,7 @@ for (let i = 0; i < 20; i++) {
 
     //colors
   
-  if (intrest.includes("color")) {
+  if (intrest.includes("food")) {
     console.log("User has intrest in Colors");
 
   let colorArr=[];
