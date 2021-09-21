@@ -14,7 +14,14 @@ const register = (req, res) => {
   });
   newUser.save();
   // console.log("userCreated");
-  res.json({ message: "Successfully Registered, Please login now." });
+  res.json({ message: "Successfully Registered, Please login now.", user: {
+    _id: newUser._id,
+    userName: newUser.userName,
+    fullName: newUser.fullName,
+    email: newUser.email,
+    intrests: newUser.intrests ,
+    likes: newUser.likes
+   }});
 };
 
 const signIn = (req, res) => {
@@ -22,7 +29,7 @@ const signIn = (req, res) => {
   
   User.findOne({ userName: userName }, (error, foundUser) => {
     if (foundUser) {
-      console.log("UserFound");
+      console.log({foundUser});
       if (foundUser.password == password) {
         res.json({message: "Login Successfull", user: {
           _id: foundUser._id,
