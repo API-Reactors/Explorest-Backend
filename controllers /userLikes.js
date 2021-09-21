@@ -7,7 +7,7 @@ const addLikePost = (req, res) => {
   const { title, imgUrl, description, comment } = req.body;
   const userIdentity = req.params.user_id;
   User.findById({ _id: userIdentity }, (err, userInfo) => {
-    userInfo.likes.push({ title: "title", imgUrl: 'imgUrl', description: "description", comment: "comment" });
+    userInfo.likes.push({ title: title , imgUrl: imgUrl, description: description, comment: comment });
     // console.log(userInfo)
     userInfo.save();
     res.json(userInfo.likes);
