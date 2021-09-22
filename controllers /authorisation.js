@@ -12,16 +12,31 @@ const register = (req, res) => {
     intrests: [],
     likes: [],
   });
-  newUser.save();
+  newUser.save(function (err) {
+    if(err){
+    console.log(err);
+    res.json({ message: "User Name or Email Already Exist, Please Try Again.",err: true})
+    } else {
+      res.json({ message: "Successfully Registered, Please login now.", err: false , user: {
+        _id: newUser._id,
+        userName: newUser.userName,
+        fullName: newUser.fullName,
+        email: newUser.email,
+        intrests: newUser.intrests ,
+        likes: newUser.likes
+       }});
+
+    }
+});
   // console.log("userCreated");
-  res.json({ message: "Successfully Registered, Please login now.", user: {
-    _id: newUser._id,
-    userName: newUser.userName,
-    fullName: newUser.fullName,
-    email: newUser.email,
-    intrests: newUser.intrests ,
-    likes: newUser.likes
-   }});
+  // res.json({ message: "Successfully Registered, Please login now.", user: {
+  //   _id: newUser._id,
+  //   userName: newUser.userName,
+  //   fullName: newUser.fullName,
+  //   email: newUser.email,
+  //   intrests: newUser.intrests ,
+  //   likes: newUser.likes
+  //  }});
 };
 
 const signIn = (req, res) => {
