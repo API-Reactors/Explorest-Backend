@@ -15,7 +15,7 @@ let intrestsItems =[];
 
   //news
   if (intrest.includes("news")) {
-    console.log("User has intrest in News");
+    // console.log("User has intrest in News");
     const newsResponse = await axios.get(
       `https://gnews.io/api/v4/search?q=global&token=6ceb0d2c18cf296eaeccacc8df22694c&lang=en`
     );
@@ -41,7 +41,7 @@ let intrestsItems =[];
 
   //food
   if (intrest.includes("food")) {
-    console.log("User has intrest in Food");
+    // console.log("User has intrest in Food");
     const foodResponse = await axios.get(
       `https://www.themealdb.com/api/json/v1/1/search.php?f=b`
     );
@@ -54,10 +54,10 @@ let intrestsItems =[];
     });
     Array.prototype.push.apply(intrestsItems, newfoods);
   }
-  //meakup
+  //makeup
 
   if (intrest.includes("makeup")) {
-    console.log("User has intrest in Makeup");
+    // console.log("User has intrest in Makeup");
     const makeupResponse = await axios.get(
       `http://makeup-api.herokuapp.com/api/v1/products.json?rating_greater_than=4.9`
     );
@@ -69,11 +69,11 @@ let intrestsItems =[];
   //animal
 
   if (intrest.includes("animal")) {
-    console.log("User has intrest in Photo-Pets");
-    const photoResponse = await axios.get(
+    // console.log("User has intrest in Photo-Pets");
+    const animalResponse = await axios.get(
       `https://pixabay.com/api/?key=23439126-48e6990e9f2a6b0eef8dd8f7e&q=animal&image_type=photo&safesearch=true`
     );
-    const newAnimal = photoResponse.data.hits.map((value) => {
+    const newAnimal = animalResponse.data.hits.map((value) => {
       return new Interestsnt(value.tags, value.tags, value.largeImageURL);
     });
     Array.prototype.push.apply(intrestsItems, newAnimal);
@@ -81,7 +81,7 @@ let intrestsItems =[];
 
   //sport
   if (intrest.includes("sport")) {
-    console.log("User has intrest in Sport");
+    // console.log("User has intrest in Sport");
     const sportResponse = await axios.get(
       `https://gnews.io/api/v4/search?q=barcelona&token=6ceb0d2c18cf296eaeccacc8df22694c&lang=en`
     );
@@ -94,7 +94,7 @@ let intrestsItems =[];
 
   //anime
   if (intrest.includes("anime")) {
-    console.log("User has intrest in Anime");
+    // console.log("User has intrest in Anime");
     const animeResponse = await axios.get(
       `https://api.jikan.moe/v3/search/anime?q=anime&rated=pg13`
     );
@@ -105,23 +105,37 @@ let intrestsItems =[];
     Array.prototype.push.apply(intrestsItems, newAnime);
   }
 
-//movies
-if (intrest.includes("movies")) {
-  console.log("User has intrest in Movies");
-    const moviesResponse = await axios.get(
-      `https://api.jikan.moe/v3/search/anime?q=anime&rated=pg13`
+  
+  // Treeeeeeees ------- 
+
+  if (intrest.includes("tree")) {
+    // console.log("User has intrest in tree");
+      const treeResponse = await axios.get(
+        `https://api.unsplash.com/search/photos?client_id=zFQ_Z1BIlXm8s9RrK2ZlSKQL9MLUyn6nceDv6EdT5mU&query=tree&per_page=15&content_filter=high`
+      );
+  
+      const newTree = treeResponse.data.results.map((value) => {
+        return new Interestsnt(value.description, value.alt_description, value.urls.regular);
+      });
+      Array.prototype.push.apply(intrestsItems, newTree);
+    }
+  // https://api.unsplash.com/search/photos?client_id=zFQ_Z1BIlXm8s9RrK2ZlSKQL9MLUyn6nceDv6EdT5mU&query=trees&per_page=15
+
+if (intrest.includes("art")) {
+  // console.log("User has intrest in art");
+    const artResponse = await axios.get(
+      `https://api.unsplash.com/search/photos?client_id=zFQ_Z1BIlXm8s9RrK2ZlSKQL9MLUyn6nceDv6EdT5mU&query=design&per_page=15&content_filter=high`
     );
 
-    const newMovies = moviesResponse.data.results.map((value) => {
-      return new Interestsnt(value.title, value.synopsis, value.image_url);
+    const newArt = artResponse.data.results.map((value) => {
+      return new Interestsnt(value.description, value.alt_description, value.urls.regular);
     });
-    Array.prototype.push.apply(intrestsItems, newMovies);
+    Array.prototype.push.apply(intrestsItems, newArt);
   }
-
   //memes
   
   if (intrest.includes("memes")) {
-    console.log("User has intrest in Mems");
+    // console.log("User has intrest in Mems");
 
     let memesArr=[];
 for (let i = 0; i < 20; i++) {
@@ -139,19 +153,19 @@ for (let i = 0; i < 20; i++) {
     //colors
   
   if (intrest.includes("color")) {
-    console.log("User has intrest in Colors");
+    // console.log("User has intrest in Colors");
 
   let colorArr=[];
 for (let i = 0; i < 20; i++) {
       let colorResponse = await axios.get(
-        `https://www.colourlovers.com/api/palettes/random?format=json`
+        `http://www.colourlovers.com/api/palettes/random?format=json`
       );
-      console.log(colorResponse);
+ 
       let newColor = colorResponse.data[0];
        let color = new Interestsnt(newColor.userName, newColor.title, newColor.imageUrl);
        colorArr.push(color);
       }; 
-      console.log(colorArr);
+   
       Array.prototype.push.apply(intrestsItems, colorArr);
     }
 

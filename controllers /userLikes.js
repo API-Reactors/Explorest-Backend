@@ -33,12 +33,12 @@ const updateLikePost = (req, res) => {
   User.findOne({ _id: userIdentity }, (err, userInfo) => {
 
     let idx = userInfo.likes.findIndex((i) => i.title === title);
-    console.log(idx);
+  // console.log(idx);
     if (idx >= 0) {
       let likeee = userInfo.likes[idx]
       likeee['comment'] = newcomment
       userInfo.likes[idx] = likeee
-      console.log(userInfo.likes);
+      // console.log(userInfo.likes);
       userInfo.save();
       res.json(userInfo);
     } else {
@@ -51,7 +51,7 @@ const updateLikePost = (req, res) => {
 const getLikedPost = (req, res) => {
   const userIdentity = req.params.user_id;
   User.find({ _id: userIdentity }, (err, userInfo) => {
-    console.log(userInfo.likes);
+    // console.log(userInfo.likes);
     res.json(userInfo.likes);
 
 
