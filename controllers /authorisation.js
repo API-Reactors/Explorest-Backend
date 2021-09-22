@@ -46,7 +46,7 @@ const signIn = (req, res) => {
     if (foundUser) {
       console.log({foundUser});
       if (foundUser.password == password) {
-        res.json({message: "Login Successfull", user: {
+        res.json({message: "Login Successfull",err: false, user: {
           _id: foundUser._id,
           userName: foundUser.userName,
           fullName: foundUser.fullName,
@@ -55,10 +55,10 @@ const signIn = (req, res) => {
           likes: foundUser.likes
          }});
       } else {
-        res.json({message:"InCorrect Password !"});
+        res.json({message:"InCorrect Password !",err: true});
       }
     } else {
-      res.json({message:"User Not Found :("});
+      res.json({message:"User Not Found :(",err: true});
     }
   });
 };
