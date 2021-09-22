@@ -7,7 +7,7 @@ const addLikePost = (req, res) => {
   const { title, imgUrl, description, comment } = req.body;
   const userIdentity = req.params.user_id;
   User.findById({ _id: userIdentity }, (err, userInfo) => {
-    userInfo.likes.push({ title: title, imgUrl: imgUrl, description: description, comment: comment });
+    userInfo.likes.push({ title: title , imgUrl: imgUrl, description: description, comment: comment });
     // console.log(userInfo)
     userInfo.save();
     res.json(userInfo);
@@ -15,7 +15,7 @@ const addLikePost = (req, res) => {
 };
 
 const deleteLikePost = (req, res) => {
-  const { title} = req.body;
+  const { title } = req.body;
   const userIdentity = req.params.user_id;
   User.findById({ _id: userIdentity }, (err, userInfo) => {
     let indexOfPost = userInfo.likes.findIndex((i) => i.title === title);
@@ -28,26 +28,34 @@ const deleteLikePost = (req, res) => {
 
 const updateLikePost = (req, res) => {
 
-  const { title,newcomment} = req.body;
+  const { title, newcomment } = req.body;
   const userIdentity = req.params.user_id;
-  User.findById({ _id: userIdentity }, (err, userInfo) => {
+  User.findOne({ _id: userIdentity }, (err, userInfo) => {
+
     let idx = userInfo.likes.findIndex((i) => i.title === title);
-    let likeee = userInfo.likes[idx]
-    likeee['comment'] = newcomment
-    userInfo.likes[idx] = likeee
-    console.log(userInfo.likes);
-    userInfo.save();
-    res.json(userInfo.likes);
+  // console.log(idx);
+    if (idx >= 0) {
+      let likeee = userInfo.likes[idx]
+      likeee['comment'] = newcomment
+      userInfo.likes[idx] = likeee
+      // console.log(userInfo.likes);
+      userInfo.save();
+      res.json(userInfo);
+    } else {
+      console.log("error");
+      res.json("error");
+
+    }
   })
 }
-const getLikedPost = (req,res)=> {
+const getLikedPost = (req, res) => {
   const userIdentity = req.params.user_id;
   User.find({ _id: userIdentity }, (err, userInfo) => {
-    console.log(userInfo.likes);
+    // console.log(userInfo.likes);
     res.json(userInfo.likes);
 
 
   })
 }
 
-module.exports = { addLikePost, deleteLikePost, updateLikePost,getLikedPost };
+module.exports = { addLikePost, deleteLikePost, updateLikePost, getLikedPost };

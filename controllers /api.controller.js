@@ -15,11 +15,11 @@ let intrestsItems =[];
 
   //news
   if (intrest.includes("news")) {
-    console.log("User has intrest in News");
+    // console.log("User has intrest in News");
     const newsResponse = await axios.get(
-      `http://api.mediastack.com/v1/news?access_key=${news_api_key}`
+      `https://gnews.io/api/v4/search?q=global&token=6ceb0d2c18cf296eaeccacc8df22694c&lang=en`
     );
-    const newNews = newsResponse.data.data.map((value) => {
+    const newNews = newsResponse.data.articles.map((value) => {
       if (value.image != null) {
         return new Interestsnt(value.title, value.description, value.image);
       } else return "";
@@ -41,7 +41,7 @@ let intrestsItems =[];
 
   //food
   if (intrest.includes("food")) {
-    console.log("User has intrest in Food");
+    // console.log("User has intrest in Food");
     const foodResponse = await axios.get(
       `https://www.themealdb.com/api/json/v1/1/search.php?f=b`
     );
@@ -54,49 +54,49 @@ let intrestsItems =[];
     });
     Array.prototype.push.apply(intrestsItems, newfoods);
   }
-  //meakup
+  //makeup
 
   if (intrest.includes("makeup")) {
-    console.log("User has intrest in Makeup");
+    // console.log("User has intrest in Makeup");
     const makeupResponse = await axios.get(
-      `http://makeup-api.herokuapp.com/api/v1/products.json`
+      `http://makeup-api.herokuapp.com/api/v1/products.json?rating_greater_than=4.9`
     );
     const newMakeup= makeupResponse.data.slice(0, 19).map((value) => {
       return new Interestsnt(value.name, value.description, value.image_link);
     });
     Array.prototype.push.apply(intrestsItems,newMakeup);
   }
-  //photo
+  //animal
 
-  if (intrest.includes("photo")) {
-    console.log("User has intrest in Photo-Pets");
-    const photoResponse = await axios.get(
-      `https://pixabay.com/api/?key=23439126-48e6990e9f2a6b0eef8dd8f7e&q=pet&image_type=photo&safesearch=true`
+  if (intrest.includes("animal")) {
+    // console.log("User has intrest in Photo-Pets");
+    const animalResponse = await axios.get(
+      `https://pixabay.com/api/?key=23439126-48e6990e9f2a6b0eef8dd8f7e&q=animal&image_type=photo&safesearch=true`
     );
-    newPhoto = photoResponse.data.hits.map((value) => {
+    const newAnimal = animalResponse.data.hits.map((value) => {
       return new Interestsnt(value.tags, value.tags, value.largeImageURL);
     });
-    Array.prototype.push.apply(intrestsItems, newPhoto);
+    Array.prototype.push.apply(intrestsItems, newAnimal);
   }
 
   //sport
   if (intrest.includes("sport")) {
-    console.log("User has intrest in Sport");
+    // console.log("User has intrest in Sport");
     const sportResponse = await axios.get(
-      `https://newsapi.org/v2/everything?q=bitcoin&apiKey=${sport_api_key}`
+      `https://gnews.io/api/v4/search?q=barcelona&token=6ceb0d2c18cf296eaeccacc8df22694c&lang=en`
     );
 
     const newSport = sportResponse.data.articles.map((value) => {
-      return new Interestsnt(value.title, value.description, value.urlToImage);
+      return new Interestsnt(value.title, value.description, value.image);
     });
     Array.prototype.push.apply(intrestsItems, newSport);
   }
 
   //anime
   if (intrest.includes("anime")) {
-    console.log("User has intrest in Anime");
+    // console.log("User has intrest in Anime");
     const animeResponse = await axios.get(
-      `https://api.jikan.moe/v3/search/anime?q=anime`
+      `https://api.jikan.moe/v3/search/anime?q=anime&rated=pg13`
     );
 
     const newAnime = animeResponse.data.results.map((value) => {
@@ -105,25 +105,39 @@ let intrestsItems =[];
     Array.prototype.push.apply(intrestsItems, newAnime);
   }
 
-//movies
-if (intrest.includes("movies")) {
-  console.log("User has intrest in Movies");
-    const moviesResponse = await axios.get(
-      `https://api.jikan.moe/v3/search/anime?q=anime`
+  
+  // Treeeeeeees ------- 
+
+  if (intrest.includes("tree")) {
+    // console.log("User has intrest in tree");
+      const treeResponse = await axios.get(
+        `https://api.unsplash.com/search/photos?client_id=zFQ_Z1BIlXm8s9RrK2ZlSKQL9MLUyn6nceDv6EdT5mU&query=tree&per_page=15&content_filter=high`
+      );
+  
+      const newTree = treeResponse.data.results.map((value) => {
+        return new Interestsnt(value.description, value.alt_description, value.urls.regular);
+      });
+      Array.prototype.push.apply(intrestsItems, newTree);
+    }
+  // https://api.unsplash.com/search/photos?client_id=zFQ_Z1BIlXm8s9RrK2ZlSKQL9MLUyn6nceDv6EdT5mU&query=trees&per_page=15
+
+if (intrest.includes("art")) {
+  // console.log("User has intrest in art");
+    const artResponse = await axios.get(
+      `https://api.unsplash.com/search/photos?client_id=zFQ_Z1BIlXm8s9RrK2ZlSKQL9MLUyn6nceDv6EdT5mU&query=design&per_page=15&content_filter=high`
     );
 
-    const newMovies = moviesResponse.data.results.map((value) => {
-      return new Interestsnt(value.title, value.synopsis, value.image_url);
+    const newArt = artResponse.data.results.map((value) => {
+      return new Interestsnt(value.description, value.alt_description, value.urls.regular);
     });
-    Array.prototype.push.apply(intrestsItems, newMovies);
+    Array.prototype.push.apply(intrestsItems, newArt);
   }
-
   //memes
   
   if (intrest.includes("memes")) {
-    console.log("User has intrest in Mems");
+    // console.log("User has intrest in Mems");
 
-    const memesArr=[];
+    let memesArr=[];
 for (let i = 0; i < 20; i++) {
       const memesResponse = await axios.get(
         `https://some-random-api.ml/meme`
@@ -138,22 +152,24 @@ for (let i = 0; i < 20; i++) {
 
     //colors
   
-  if (intrest.includes("colors")) {
-    console.log("User has intrest in Colors");
+  if (intrest.includes("color")) {
+    // console.log("User has intrest in Colors");
 
-    const colorArr=[];
+  let colorArr=[];
 for (let i = 0; i < 20; i++) {
-      const colorResponse = await axios.get(
-        `https://www.colourlovers.com/api/palettes/random?format=json`
+      let colorResponse = await axios.get(
+        `http://www.colourlovers.com/api/palettes/random?format=json`
       );
-      const newColor = memesResponse.data;
-       const color = new Interestsnt(newColor.userName, newColor.colors.toString(), newColor.imageUrl);
+ 
+      let newColor = colorResponse.data[0];
+       let color = new Interestsnt(newColor.userName, newColor.title, newColor.imageUrl);
        colorArr.push(color);
       }; 
+   
       Array.prototype.push.apply(intrestsItems, colorArr);
     }
 
-
+//colors.toString()
 
  return intrestsItems;
 };
