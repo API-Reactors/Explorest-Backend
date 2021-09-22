@@ -1,7 +1,9 @@
 "use strict";
 const User = require("../models/User");
 const { req, res } = require("express");
-//add intrests :
+
+
+//add favourite:
 
 const addLikePost = (req, res) => {
   const { title, imgUrl, description, comment } = req.body;
@@ -14,6 +16,8 @@ const addLikePost = (req, res) => {
   });
 };
 
+//delete favourite
+
 const deleteLikePost = (req, res) => {
   const { title } = req.body;
   const userIdentity = req.params.user_id;
@@ -25,6 +29,8 @@ const deleteLikePost = (req, res) => {
     res.json(userInfo);
   })
 }
+
+// update note
 
 const updateLikePost = (req, res) => {
 
@@ -48,6 +54,9 @@ const updateLikePost = (req, res) => {
     }
   })
 }
+
+// render favourite in profile
+
 const getLikedPost = (req, res) => {
   const userIdentity = req.params.user_id;
   User.find({ _id: userIdentity }, (err, userInfo) => {

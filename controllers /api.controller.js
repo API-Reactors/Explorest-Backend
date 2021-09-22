@@ -6,8 +6,8 @@ const Interestsnt = require("../models/Api.Model");
 
 const book_api_key = process.env.BOOK_API_KEY;
 const news_api_key = process.env.NEWS_API_KEY;
-const sport_api_key = process.env.SPORT_API_KEY;
-const movie_api_key = process.env.MOVIE_API_KEY;
+const pIXABAY_api_key = process.env.PIXABAY_API_KEY;
+const uNSPLASH_KEY = process.env.UNSPLASH_KEY;
 
 const getIntrests = async (intrest) => {
   
@@ -17,7 +17,7 @@ let intrestsItems =[];
   if (intrest.includes("news")) {
     // console.log("User has intrest in News");
     const newsResponse = await axios.get(
-      `https://gnews.io/api/v4/search?q=global&token=6ceb0d2c18cf296eaeccacc8df22694c&lang=en`
+      `https://gnews.io/api/v4/search?q=global&token=${news_api_key}6ceb0d2c18cf296eaeccacc8df22694c&lang=en`
     );
     const newNews = newsResponse.data.articles.map((value) => {
       if (value.image != null) {
@@ -71,7 +71,7 @@ let intrestsItems =[];
   if (intrest.includes("animal")) {
     // console.log("User has intrest in Photo-Pets");
     const animalResponse = await axios.get(
-      `https://pixabay.com/api/?key=23439126-48e6990e9f2a6b0eef8dd8f7e&q=animal&image_type=photo&safesearch=true`
+      `https://pixabay.com/api/?key=${pIXABAY_api_key}&q=animal&image_type=photo&safesearch=true`
     );
     const newAnimal = animalResponse.data.hits.map((value) => {
       return new Interestsnt(value.tags, value.tags, value.largeImageURL);
@@ -83,7 +83,7 @@ let intrestsItems =[];
   if (intrest.includes("sport")) {
     // console.log("User has intrest in Sport");
     const sportResponse = await axios.get(
-      `https://gnews.io/api/v4/search?q=barcelona&token=6ceb0d2c18cf296eaeccacc8df22694c&lang=en`
+      `https://gnews.io/api/v4/search?q=barcelona&token=${news_api_key}&lang=en`
     );
 
     const newSport = sportResponse.data.articles.map((value) => {
@@ -107,11 +107,11 @@ let intrestsItems =[];
 
   
   // Treeeeeeees ------- 
-
+ 
   if (intrest.includes("tree")) {
     // console.log("User has intrest in tree");
       const treeResponse = await axios.get(
-        `https://api.unsplash.com/search/photos?client_id=zFQ_Z1BIlXm8s9RrK2ZlSKQL9MLUyn6nceDv6EdT5mU&query=tree&per_page=15&content_filter=high`
+        `https://api.unsplash.com/search/photos?client_id=${uNSPLASH_KEY}&query=tree&per_page=15&content_filter=high`
       );
   
       const newTree = treeResponse.data.results.map((value) => {
@@ -124,7 +124,7 @@ let intrestsItems =[];
 if (intrest.includes("art")) {
   // console.log("User has intrest in art");
     const artResponse = await axios.get(
-      `https://api.unsplash.com/search/photos?client_id=zFQ_Z1BIlXm8s9RrK2ZlSKQL9MLUyn6nceDv6EdT5mU&query=design&per_page=15&content_filter=high`
+      `https://api.unsplash.com/search/photos?client_id=${uNSPLASH_KEY}&query=design&per_page=15&content_filter=high`
     );
 
     const newArt = artResponse.data.results.map((value) => {
@@ -162,14 +162,14 @@ for (let i = 0; i < 20; i++) {
       );
  
       let newColor = colorResponse.data[0];
-       let color = new Interestsnt(newColor.userName, newColor.title, newColor.imageUrl);
+       let color = new Interestsnt(newColor.userName, newColor.colors.toString(), newColor.imageUrl);
        colorArr.push(color);
       }; 
    
       Array.prototype.push.apply(intrestsItems, colorArr);
     }
 
-//colors.toString()
+
 
  return intrestsItems;
 };
